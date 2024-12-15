@@ -3,6 +3,7 @@ import { fecthCoinDetails } from "../services/fetchCOinDetails";
 import { useQuery } from "@tanstack/react-query";
 import parse from "html-react-parser";
 import currencyStore from "../state/store";
+import PageLoader from "../components/PageLoader/PageLoader";
 
 function CoinDetailsPage() {
   const { coinId } = useParams();
@@ -21,7 +22,7 @@ function CoinDetailsPage() {
   coin, coinId;
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <PageLoader />;
   }
 
   if (isError) {

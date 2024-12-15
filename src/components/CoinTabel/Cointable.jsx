@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 // import { CurrencyContext } from "../../context/CurrencyContext";
 import currencyStore from "../../state/store";
 import { useNavigate } from "react-router-dom";
+import PageLoader from "../PageLoader/PageLoader";
 
 function CoinTable() {
   //   const { currency } = useContext(CurrencyContext);
@@ -24,7 +25,7 @@ function CoinTable() {
   });
 
   if (isLoading) {
-    return <div> Loading....</div>;
+    return <PageLoader />;
   }
 
   function handleCoinRedirect(id) {
