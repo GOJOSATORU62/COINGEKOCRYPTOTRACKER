@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import parse from "html-react-parser";
 import currencyStore from "../state/store";
 import PageLoader from "../components/PageLoader/PageLoader";
+import CoinInfoContainer from "../components/CoinInfo/CoininfoContainer";
 
 function CoinDetailsPage() {
   const { coinId } = useParams();
@@ -56,7 +57,9 @@ function CoinDetailsPage() {
         </div>
       </div>
 
-      <div className="md:w-2/3 w-full p-6 ">Coin Information</div>
+      <div className="md:w-2/3 w-full p-6 ">
+        <CoinInfoContainer coinId={coinId} />
+      </div>
     </div>
   );
 }
