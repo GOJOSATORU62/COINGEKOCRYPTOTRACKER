@@ -1,26 +1,12 @@
 import { useParams } from "react-router-dom";
-import { fecthCoinDetails } from "../services/fetchCOinDetails";
-import { useQuery } from "@tanstack/react-query";
 import parse from "html-react-parser";
-import currencyStore from "../state/store";
 import PageLoader from "../components/PageLoader/PageLoader";
 import CoinInfoContainer from "../components/CoinInfo/CoininfoContainer";
+import useFetchCoin from "../hooks/useFetchCoin";
 
 function CoinDetailsPage() {
   const { coinId } = useParams();
-  const { currency } = currencyStore();
-
-  const {
-    isError,
-    isLoading,
-    data: coin,
-  } = useQuery({
-    queryKey: ["coin", coinId],
-    queryFn: () => fecthCoinDetails(coinId),
-    cacheTime: 1000 * 60 * 2,
-    staleTime: 1000 * 60 * 2,
-  });
-  coin, coinId;
+  const { isLoading, isError, coin, currency } = useFetchCoin(coinId);
 
   if (isLoading) {
     return <PageLoader />;
@@ -32,7 +18,7 @@ function CoinDetailsPage() {
 
   return (
     <div className="flex flex-col md:flex-row">
-      <div className="md: w-1/3 w-full flex flex-col items-center mt-6 md:mt-0 border-r-2 border-gray-500">
+      <div className="md:w-1/3 w-full flex flex-col items-center mt-6 md:mt-0 border-r-2 border-gray-500">
         <img alt={coin?.name} src={coin?.image?.large} className="h-52 mb-5" />
         <h1 className="text-4xl font-bold mb-5"> {coin?.name}</h1>
         <p className="w-full px-6 py-4 text-justify">
